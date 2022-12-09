@@ -33,7 +33,8 @@ class HomeViewController: UIViewController {
     private func configureNavbar() {
         var buttonIcon = UIImage(named: "netflixLogo")
         buttonIcon = buttonIcon?.withRenderingMode(.alwaysOriginal)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Netflix", style: .done, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonIcon, style: .done, target: self, action: nil)
+        navigationItem.leftBarButtonItem?.width = -5
         //hitting a wall submitting question to stack overflow
     }
     
@@ -76,5 +77,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 /**
  Netflix logo source: https://www.citypng.com/png-download/stock/2289
+ 
+ Possible UIImage in bar button item sltn: https://stackoverflow.com/questions/33379890/leftbarbuttonitem-remove-padding
+ 
+ My stack overflow question: https://stackoverflow.com/questions/74743718/navigation-bar-button-item-alignment-issue
  
  */
