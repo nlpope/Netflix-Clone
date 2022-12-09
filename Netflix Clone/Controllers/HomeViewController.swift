@@ -31,9 +31,10 @@ class HomeViewController: UIViewController {
     }
     
     private func configureNavbar() {
-        var image = UIImage(named: "netflixLogo")
-        image = image?.withRenderingMode(.alwaysOriginal)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        var buttonIcon = UIImage(named: "netflixLogo")
+        buttonIcon = buttonIcon?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Netflix", style: .done, target: self, action: nil)
+        //hitting a wall submitting question to stack overflow
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,3 +73,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return 40
     }
 }
+
+/**
+ Netflix logo source: https://www.citypng.com/png-download/stock/2289
+ 
+ */
