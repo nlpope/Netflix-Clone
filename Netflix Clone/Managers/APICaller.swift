@@ -20,3 +20,5 @@ class APICaller {
         
     }
 }
+
+//doing research on closures -> complHandlers
