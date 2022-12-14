@@ -22,3 +22,4 @@ class APICaller {
 }
 
 //doing research on closures -> complHandlers
+//finished closure readings/practice -> moving on to complHanlders
