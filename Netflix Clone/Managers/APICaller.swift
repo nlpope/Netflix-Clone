@@ -35,4 +35,4 @@ class APICaller {
     }
 }
 
-//doing research on completion handlers (escaping & non-esc.)
+//Work done in Playgrounds to fill out my understanding
