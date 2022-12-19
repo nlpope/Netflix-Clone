@@ -25,7 +25,7 @@ class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(TrendingMoviesResponse.self, from: data)
-                print(results.results[0].original_title)
+                print(results.results[0].original_title!)
             } catch {
                 print(error.localizedDescription)
             }
