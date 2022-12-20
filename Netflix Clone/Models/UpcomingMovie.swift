@@ -1,19 +1,17 @@
 //
-//  Movie.swift
+//  UpcomingMovies.swift
 //  Netflix Clone
 //
-//  Created by Noah Pope on 12/19/22.
+//  Created by Noah Pope on 12/20/22.
 //
 
 import Foundation
 
-//array
-struct TrendingMoviesResponse: Codable {
+struct UpcomingMovieResponse: Codable {
     let results: [Movie]
 }
 
-//a single item in that array
-struct Movie: Codable {
+struct UpcomingMovie: Codable {
     let id: Int
     let media_type: String?
     let original_name: String?
