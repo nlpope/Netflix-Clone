@@ -37,7 +37,15 @@ class APICaller {
         //task by default is created in pause status
         task.resume()
     }
+    
+    func getTrendingTvs(completion: @escaping (Result<[String], Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.baseURL)/3/trending/tv/day?api_key=\(Constants.API_KEY)") else {return}
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
+            guard let data = data, error == nil else {return}
+            
+            
+        }
+    }
 }
 
-//Work done in Playgrounds to fill out my understanding
 
