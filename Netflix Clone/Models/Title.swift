@@ -1,17 +1,19 @@
 //
-//  PopularMovie.swift
+//  Movie.swift
 //  Netflix Clone
 //
-//  Created by Noah Pope on 12/20/22.
+//  Created by Noah Pope on 12/19/22.
 //
 
 import Foundation
 
-struct PopularMovieResponse: Codable {
-    let results: [Movie]
+//array
+struct TrendingTitleResponse: Codable {
+    let results: [Title]
 }
 
-struct PopularMovie: Codable {
+//a single item in that array
+struct Title: Codable {
     let id: Int
     let media_type: String?
     let original_name: String?
