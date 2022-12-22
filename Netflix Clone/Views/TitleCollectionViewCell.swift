@@ -7,6 +7,7 @@
 //  Responsible for handling everything inside collection view instead of default cell we get
 
 import UIKit
+import SDWebImage
 
 class TitleCollectionViewCell: UICollectionViewCell {
     
@@ -32,6 +33,11 @@ class TitleCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         posterImageView.frame = contentView.bounds
+    }
+    
+    public func configure(with model: String) {
+        guard let url = URL(string: model) else {return}
+        posterImageView.sd_setImage(with: url, completed: nil)
     }
     
 }
