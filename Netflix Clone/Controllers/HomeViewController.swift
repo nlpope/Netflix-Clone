@@ -98,7 +98,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
             APICaller.shared.getTrendingTvs { result in
                 switch result {
-                case .success(let titles)
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
                 }
             }
         case Section.Popular:
