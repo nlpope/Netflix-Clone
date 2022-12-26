@@ -88,6 +88,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             APICaller.shared.getTrendingMovies { result in
                 switch result {
                 case .success(let titles):
+                    print(titles)
                     cell.configure(with: titles)
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -104,9 +105,38 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                     print(error.localizedDescription)
                 }
             }
-        case Section.Popular:
-        case Section.Upcoming:
-        case Section.TopRated:
+        case Section.Popular.rawValue:
+            
+            APICaller.shared.getPopularMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.Upcoming.rawValue:
+            
+            APICaller.shared.getPopularMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.TopRated.rawValue:
+            
+            APICaller.shared.getTopRated { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        default:
+            return UITableViewCell()
         }
         return cell
     }
