@@ -10,7 +10,7 @@ import UIKit
 class UpcomingViewController: UIViewController {
     
     private let upcomingTable: UITableView = {
-       
+       //we're only using the URL here so use closure based initialization
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return table
@@ -30,7 +30,7 @@ class UpcomingViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        upcomingTable.frame = view.bounds 
+        upcomingTable.frame = view.bounds
     }
     
 
