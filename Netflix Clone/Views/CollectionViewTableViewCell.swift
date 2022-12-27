@@ -45,6 +45,9 @@ class CollectionViewTableViewCell: UITableViewCell {
     
     public func configure(with titles: [Title]) {
         self.titles = titles
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
 }
 
@@ -53,7 +56,7 @@ class CollectionViewTableViewCell: UITableViewCell {
 extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return titles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,10 +64,11 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
             return UICollectionViewCell()
         }
         
-        cell.configure(with: "")
+        guard let model = titles[indexPath.row].poster_path else {return UICollectionViewCell()}
+        
+        cell.configure(with: model)
         
         return cell
     }
-    
-    
+        
 }

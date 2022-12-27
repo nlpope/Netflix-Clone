@@ -88,7 +88,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             APICaller.shared.getTrendingMovies { result in
                 switch result {
                 case .success(let titles):
-                    print(titles)
+//                    print(titles)
                     cell.configure(with: titles)
                 case .failure(let error):
                     print(error.localizedDescription)
