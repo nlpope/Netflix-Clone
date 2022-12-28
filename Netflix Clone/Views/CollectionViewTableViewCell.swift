@@ -25,6 +25,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    //initializers are not inherited for subclasses by default; Parent class (UITableViewCell) already has initializers for the style and reuseIdentifier
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .systemPink
