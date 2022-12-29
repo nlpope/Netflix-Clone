@@ -23,7 +23,7 @@ class TitleTableViewCell: UITableViewCell {
         return label
     }()
     
-    //creating ui image view to hold the poster
+    //creating ui image view to hold the poster that generates
     private let titlePosterUIImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
