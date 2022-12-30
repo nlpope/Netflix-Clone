@@ -14,7 +14,7 @@ class UpcomingViewController: UIViewController {
     private let upcomingTable: UITableView = {
        //we're only using the URL here so use closure based initialization
         let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(UITableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
     }()
 
@@ -35,6 +35,8 @@ class UpcomingViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         upcomingTable.frame = view.bounds
+        
+        
     }
     
     private func fetchUpcoming() {
@@ -62,10 +64,22 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = titles[indexPath.row].original_name ?? titles[indexPath.row].original_title ?? "Unknown"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(with: TitleViewModel(titleName: titles[indexPath.row].original_name, posterURL: <#T##String#>))
+        
         return cell
     }
     
     
 }
+
+
+/**
+ let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+ cell.textLabel?.text = titles[indexPath.row].original_name ?? titles[indexPath.row].original_title ?? "Unknown"
+ return cell
+ */
