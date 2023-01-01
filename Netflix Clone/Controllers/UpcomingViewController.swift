@@ -14,7 +14,7 @@ class UpcomingViewController: UIViewController {
     private let upcomingTable: UITableView = {
        //we're only using the URL here so use closure based initialization
         let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
+        table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
     }()
 
