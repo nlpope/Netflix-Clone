@@ -65,7 +65,8 @@ class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
-                completion(.success(results.results))
+//                completion(.success(results.results))
+                print(results.results)
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
@@ -87,6 +88,7 @@ class APICaller {
             }
         }
         task.resume()
+        
     }
     
     func getTopRated(completion: @escaping (Result<[Title], Error>) -> Void) {

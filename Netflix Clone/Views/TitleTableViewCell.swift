@@ -61,7 +61,9 @@ class TitleTableViewCell: UITableViewCell {
     
     //model is of type TitleViewModel
     public func configure(with model: TitleViewModel) {
-        guard let url = URL(string: model.posterURL) else {return}
+    
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else {return}
+            
         titlePosterUIImageView.sd_setImage(with: url, completed: nil)
         titleLabel.text = model.titleName
     }

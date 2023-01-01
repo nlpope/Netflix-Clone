@@ -5,6 +5,7 @@
 //  Created by Noah Pope on 12/30/22.
 //
 
+//view models hide models from controller
 import Foundation
 
 struct TitleViewModel {
