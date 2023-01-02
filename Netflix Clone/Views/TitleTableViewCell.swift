@@ -13,8 +13,10 @@ class TitleTableViewCell: UITableViewCell {
     
     private let playTitleButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "play.circle"), for: .normal)
+        let image = UIImage(systemName: "play.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
+        button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .white
         return button
     }()
     
@@ -29,6 +31,7 @@ class TitleTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -46,8 +49,8 @@ class TitleTableViewCell: UITableViewCell {
     private func applyConstraints() {
         let titlesPosterUIImageViewConstraints = [
             titlePosterUIImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titlePosterUIImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            titlePosterUIImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            titlePosterUIImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            titlePosterUIImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             titlePosterUIImageView.widthAnchor.constraint(equalToConstant: 100)
         ]
         
@@ -57,7 +60,7 @@ class TitleTableViewCell: UITableViewCell {
         ]
         
         let playTitleButtonConstraints = [
-            playTitleButton.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            playTitleButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             playTitleButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ]
         
