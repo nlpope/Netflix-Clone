@@ -65,8 +65,7 @@ class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
-//                completion(.success(results.results))
-                print(results.results)
+                completion(.success(results.results))
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
@@ -109,19 +108,20 @@ class APICaller {
     
     func getDiscoverMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
         //make url for the URL Session/task
-        guard let url =  URL(string: "\(Constants.baseURL)/3/discover/movie?api_key=\(Constants.API_KEY)") else {return}
+        guard let url = URL(string: "\(Constants.baseURL)/3/discover/movie?api_key=\(Constants.API_KEY)") else {return}
         //create a task/URLSESSION w a URLRequest(url) > Decode the data (results) returned from task [JSONDecoder().decode()]
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else {return}
             
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
-                print(results)
+                print(results.results) //test print statement (what does this look like?) -> an array of [Title]
+                completion(.success(results.results))
+                
             } catch {
-                print(error.localizedDescription)
+                completion(.failure(APIError.failedToGetData))
             }
         }
-          
         task.resume()
     }
 }
