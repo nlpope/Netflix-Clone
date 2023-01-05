@@ -9,6 +9,8 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
+    private var titles: [Title] = [Title]()
+    
     private let discoverTable: UITableView = {
        //we're only using the URL here so use closure based initialization
         let table = UITableView()
@@ -27,6 +29,8 @@ class SearchViewController: UIViewController {
         view.addSubview(discoverTable)
         discoverTable.delegate = self
         discoverTable.dataSource = self
+        
+        fetchDiscoverMovies()
 
     }
     
@@ -36,11 +40,29 @@ class SearchViewController: UIViewController {
         discoverTable.frame = view.bounds
     }
     
+    private func fetchDiscoverMovies() {
+        //is weak self here b/c we're using this APICaller-type-func in every ViewController?
+        APICaller.shared.getDiscoverMovies { [weak self] result in
+            switch result {
+            case .success(let titles):
+                self?.titles = titles
+                DispatchQueue.main.async {
+                    self?.discoverTable.reloadData()
+
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 
   
 
 }
 
+
+// MARK: TableView Methods METHODS
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

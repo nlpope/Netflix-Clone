@@ -11,6 +11,7 @@ class UpcomingViewController: UIViewController {
     
     private var titles: [Title] = [Title]()
     
+    //type that retains completion handlers
     private let upcomingTable: UITableView = {
        //we're only using the URL here so use closure based initialization
         let table = UITableView()
@@ -35,8 +36,6 @@ class UpcomingViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         upcomingTable.frame = view.bounds
-        
-        
     }
     
     private func fetchUpcoming() {
