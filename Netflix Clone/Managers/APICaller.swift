@@ -115,13 +115,12 @@ class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
-                print(results.results) //test print statement (what does this look like?) -> an array of [Title]
                 completion(.success(results.results))
-                
             } catch {
                 completion(.failure(APIError.failedToGetData))
             }
         }
+        
         task.resume()
     }
 }

@@ -34,12 +34,6 @@ class SearchViewController: UIViewController {
 
     }
     
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        discoverTable.frame = view.bounds
-    }
-    
     private func fetchDiscoverMovies() {
         //is weak self here b/c we're using this APICaller-type-func in every ViewController?
         APICaller.shared.getDiscoverMovies { [weak self] result in
@@ -56,6 +50,12 @@ class SearchViewController: UIViewController {
         }
     }
     
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        discoverTable.frame = view.bounds
+    }
+    
 
   
 
@@ -66,7 +66,7 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return titles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,6 +75,14 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
+        let title = titles[indexPath.row]
+        let model = TitleViewModel(titleName: title.original_name ?? title.original_title ?? "Unknown name", posterURL: title.poster_path ?? "")
+        cell.configure(with: model)
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
     }
 }
