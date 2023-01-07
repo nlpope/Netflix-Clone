@@ -12,12 +12,19 @@ class SearchViewController: UIViewController {
     private var titles: [Title] = [Title]()
     
     private let discoverTable: UITableView = {
-       //we're only using the URL here so use closure based initialization
+        //we're only using the URL here so use closure based initialization
         let table = UITableView()
         table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
     }()
-
+    
+    private let searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: SearchResultsViewController())
+        controller.searchBar.placeholder = "Search for a Movie or TV show"
+        controller.searchBar.searchBarStyle = .minimal
+        return controller
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Search"
@@ -30,8 +37,11 @@ class SearchViewController: UIViewController {
         discoverTable.delegate = self
         discoverTable.dataSource = self
         
+        navigationItem.searchController = searchController
+        navigationController?.navigationBar.tintColor = .white
+        
         fetchDiscoverMovies()
-
+        
     }
     
     private func fetchDiscoverMovies() {
@@ -42,7 +52,7 @@ class SearchViewController: UIViewController {
                 self?.titles = titles
                 DispatchQueue.main.async {
                     self?.discoverTable.reloadData()
-
+                    
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -56,9 +66,9 @@ class SearchViewController: UIViewController {
         discoverTable.frame = view.bounds
     }
     
-
-  
-
+    
+    
+    
 }
 
 
