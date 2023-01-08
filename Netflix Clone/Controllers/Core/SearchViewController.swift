@@ -42,6 +42,8 @@ class SearchViewController: UIViewController {
         
         fetchDiscoverMovies()
         
+        searchController.searchResultsUpdater = self
+        
     }
     
     private func fetchDiscoverMovies() {
@@ -95,4 +97,29 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        
+        guard let query = searchBar.text,
+                !query.trimmingCharacters(in: .whitespaces).isEmpty,
+                query.trimmingCharacters(in: .whitespaces).count >= 3,
+              let resultsConroller = searchController.searchResultsController as? SearchResultsViewController else {return}
+        
+        APICaller.shared.search(with: query) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let titles):
+                    resultsConroller.titles = titles
+                    resultsConroller.searchResultsCollectionView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
 }
