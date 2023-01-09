@@ -12,6 +12,7 @@ struct Constants {
     static let API_KEY = "a33493c4a470b7abe6133ac90dfaed66"
     static let baseURL = "https://api.themoviedb.org"
     static let YoutubeAPI_KEY = "AIzaSyDZr0AAbtjKaijeR-dXA5mPaKcGekvQ6os"
+    static let YoutubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
 enum APIError: Error {
@@ -110,7 +111,10 @@ class APICaller {
     func getDiscoverMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
         //make url for the URL Session/task
         guard let url = URL(string: "\(Constants.baseURL)/3/discover/movie?api_key=\(Constants.API_KEY)") else {return}
-        //create a task/URLSESSION w a URLRequest(url) > Decode the data (results) returned from task [JSONDecoder().decode()]
+        
+        //create a task/URLSESSION...dataTask w a URLRequest(url) >
+        //dont forget to verify (guard) the data is not nil before you >
+        //Decode the data (results) returned from task [JSONDecoder().decode()]
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else {return}
             
@@ -143,6 +147,26 @@ class APICaller {
         }
         task.resume()
         
+    }
+    
+    func getMovie(with query: String, completion: @escaping (Result<[Title], Error>) -> Void) {
+        //below replaces whitespace for "%20" in the url used for query
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
+        guard let url = URL(string: "\(Constants.YoutubeBaseURL)q=\(query)&key=\(Constants.YoutubeAPI_KEY)") else {return}
+        
+        //create a task/URLSESSION...dataTask w a URLRequest(url) >
+        //dont forget to verify (guard) the data is not nil before you >
+        //Decode the data (results) returned from task [JSONDecoder().decode()]
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
+            guard let data = data, error == nil else {return}
+            
+            do {
+                let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
+                
+            } catch {
+                completion(.failure(APIError.failedToGetData))
+            }
+        }
     }
 }
 
