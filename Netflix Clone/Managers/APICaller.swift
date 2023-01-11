@@ -149,6 +149,7 @@ class APICaller {
         
     }
     
+    //why not call this getYoutubeTrailer() ?
     func getMovie(with query: String, completion: @escaping (Result<VideoElement, Error>) -> Void) {
         //below replaces whitespace for "%20" in the url used for query
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
@@ -161,6 +162,7 @@ class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
+                print("what results looks like YT func: ",results.items[0])
                 completion(.success(results.items[0]))
             } catch {
                 completion(.failure(error))
