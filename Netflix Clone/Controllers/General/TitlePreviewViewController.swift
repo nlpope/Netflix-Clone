@@ -20,7 +20,7 @@ class TitlePreviewViewController: UIViewController {
     }()
     
     private let overviewLabel: UILabel = {
-       
+        
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +38,13 @@ class TitlePreviewViewController: UIViewController {
         return button
     }()
     
-    private let webView: WKWebView = WKWebView()
-
+    //anonymous closure pattern
+    private let webView: WKWebView = {
+        let webView = WKWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        return webView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,26 +58,34 @@ class TitlePreviewViewController: UIViewController {
     
     func configureConstraints() {
         let webViewConstraints = [
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.heightAnchor.constraint(equalToConstant: 250)
         ]
         
         let titleLabelConstraints = [
-            titleLabel.topAnchor.constraint(equalTo: webView.topAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: 20)
         ]
         
         let overviewLabelConstraints = [
-            overviewLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 15),
-            overviewLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 20)        ]
+            overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            overviewLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 20)
+        ]
+        
+        let downloadButtonConstraints = [
+            downloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            downloadButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 25)
+        ]
         
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overviewLabelConstraints)
+        NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
-
-
-
+    
+    
+    
 }

@@ -40,6 +40,7 @@ class SearchResultsViewController: UIViewController {
 
 }
 
+// MARK: DELEGATE AND DATASOURCE METHODS
 extension SearchResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
