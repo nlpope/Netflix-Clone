@@ -162,7 +162,6 @@ class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
-                print("what results looks like YT func: ",results.items[0])
                 completion(.success(results.items[0]))
             } catch {
                 completion(.failure(error))
