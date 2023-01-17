@@ -90,7 +90,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             APICaller.shared.getTrendingMovies { result in
                 switch result {
                 case .success(let titles):
-//                    print(titles)
                     cell.configure(with: titles)
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -173,9 +172,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeViewController: CollectionViewTableViewCellDelegate {
     func CollectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel) {
-        let vc = TitlePreviewViewController()
-        vc.configure(with: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+      
     }
 }
 
