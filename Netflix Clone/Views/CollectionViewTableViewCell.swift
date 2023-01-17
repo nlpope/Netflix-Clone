@@ -88,8 +88,11 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
             switch result {
             case .success(let videoElement):
                 
-                let viewModel = TitlePreviewViewModel(title: titles[indexPath.row].original_title ?? titles[in ], youtubeView: <#T##VideoElement#>, titleOverview: <#T##String#>)
-                delegate?.CollectionViewTableViewCellDidTapCell(self, viewModel: viewModel)
+                let title = self?.titles[indexPath.row]
+                guard let titleOverview = title?.overview else {return}
+                guard let strongSelf = self else {return}
+                let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview)
+                self?.delegate?.CollectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
                 
             case .failure(let error):
                 print(error.localizedDescription
