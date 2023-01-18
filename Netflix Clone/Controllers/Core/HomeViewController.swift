@@ -44,7 +44,6 @@ class HomeViewController: UIViewController {
         homeFeedTable.tableHeaderView = headerView
         
         configureHeroHeaderView()
-                
     }
     
     private func configureHeroHeaderView() {
@@ -52,9 +51,10 @@ class HomeViewController: UIViewController {
             switch result {
             case .success(let titles):
                 
+//                print("configureHeroHeaderView func results:", titles.randomElement()?.poster_path ?? "")
                 let selectedTitle = titles.randomElement()
                 self?.randomTrendingMovie = selectedTitle
-                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_name ?? "", posterURL: selectedTitle?.poster_path ?? ""))
+                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
                 
             case .failure(let error):
                 
