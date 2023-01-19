@@ -47,6 +47,7 @@ class HomeViewController: UIViewController {
     }
     
     private func configureHeroHeaderView() {
+        print("HomeVC.configureHeroHeaderView func called")
         APICaller.shared.getTrendingMovies { [weak self] result in
             switch result {
             case .success(let titles):

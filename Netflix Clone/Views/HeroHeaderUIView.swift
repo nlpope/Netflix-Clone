@@ -81,6 +81,7 @@ class HeroHeaderUIView: UIView {
     }
     
     public func configure(with model:TitleViewModel) {
+        print("HeroHeaderUIView.configure func called")
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else {return}
         print("* URL from heroHeaderView class:", url)
         heroImageView.sd_setImage(with: url, completed: nil)
