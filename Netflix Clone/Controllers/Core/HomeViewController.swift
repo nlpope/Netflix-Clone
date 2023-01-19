@@ -49,15 +49,19 @@ class HomeViewController: UIViewController {
     private func configureHeroHeaderView() {
         print("HomeVC.configureHeroHeaderView func called")
         APICaller.shared.getTrendingMovies { [weak self] result in
+            self?.headerView?.testConfigure()
+
             switch result {
             case .success(let titles):
+                print("titles was .successful")
                 
                 let selectedTitle = titles.randomElement()
+                print(selectedTitle!)
+                
                 self?.randomTrendingMovie = selectedTitle
                 self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
                 
             case .failure(let error):
-                
                 print(error.localizedDescription)
             }
         }

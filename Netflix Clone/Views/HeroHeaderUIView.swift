@@ -80,13 +80,6 @@ class HeroHeaderUIView: UIView {
         NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
-    public func configure(with model:TitleViewModel) {
-        print("HeroHeaderUIView.configure func called")
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else {return}
-        print("* URL from heroHeaderView class:", url)
-        heroImageView.sd_setImage(with: url, completed: nil)
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         heroImageView.frame = bounds
@@ -95,5 +88,21 @@ class HeroHeaderUIView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    public func testConfigure() {
+        print("* test config func in HeroHeaderUIView")
+    }
+    
+    public func configure(with model:TitleViewModel) {
+        print("* configure(with) func works")
+//        print("HeroHeaderUIView.configure func called")
+//        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else {return}
+//        print("* URL from heroHeaderView class:", url)
+//        heroImageView.sd_setImage(with: url, completed: nil)
+    }
+    
+  //where override layoutSubviews() was
+    
+   
 
 }
