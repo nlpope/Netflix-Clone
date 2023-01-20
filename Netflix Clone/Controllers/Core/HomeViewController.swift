@@ -54,12 +54,13 @@ class HomeViewController: UIViewController {
             switch result {
             case .success(let titles):
                 print("titles was .successful")
-                
+                //shorter to type within closure, otherwise we'd be typing self?.randomTrendingMovie every time in TitleViewModel()
                 let selectedTitle = titles.randomElement()
-                print(selectedTitle!)
+//                let configureModel = TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? "")
                 
                 self?.randomTrendingMovie = selectedTitle
-                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
+                //focus on this guy
+                self?.headerView?.testConfigure()
                 
             case .failure(let error):
                 print(error.localizedDescription)
