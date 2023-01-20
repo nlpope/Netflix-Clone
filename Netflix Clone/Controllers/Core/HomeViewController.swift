@@ -40,7 +40,8 @@ class HomeViewController: UIViewController {
         
         configureNavbar()
         
-        let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        //putting "let" in front of "headerview" here kept me from accessing the above, already defined "headerView"
+        headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
         
         configureHeroHeaderView()
@@ -49,18 +50,15 @@ class HomeViewController: UIViewController {
     private func configureHeroHeaderView() {
         print("HomeVC.configureHeroHeaderView func called")
         APICaller.shared.getTrendingMovies { [weak self] result in
-            self?.headerView?.testConfigure()
-
             switch result {
             case .success(let titles):
                 print("titles was .successful")
                 //shorter to type within closure, otherwise we'd be typing self?.randomTrendingMovie every time in TitleViewModel()
                 let selectedTitle = titles.randomElement()
-//                let configureModel = TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? "")
+                let configureModel = TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? "")
                 
                 self?.randomTrendingMovie = selectedTitle
-                //focus on this guy
-                self?.headerView?.testConfigure()
+                self?.headerView?.configure(with: configureModel)
                 
             case .failure(let error):
                 print(error.localizedDescription)

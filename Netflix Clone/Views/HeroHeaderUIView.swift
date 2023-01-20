@@ -8,11 +8,6 @@
 import UIKit
 
 class HeroHeaderUIView: UIView {
-    //give it a frame, inside frame assign 3 things:
-    //uiimage view
-    //two buttons - download and play
-    
-  
     
     private let playButton: UIButton = {
         let button = UIButton()
@@ -54,6 +49,9 @@ class HeroHeaderUIView: UIView {
         layer.addSublayer(gradientLayer)
     }
     
+    //give it a frame, inside frame assign 3 things:
+    //uiimage view
+    //two buttons - download and play
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(heroImageView)
@@ -89,20 +87,8 @@ class HeroHeaderUIView: UIView {
         fatalError()
     }
     
-    public func testConfigure() {
-        print("* test config func in HeroHeaderUIView")
-    }
-    
     public func configure(with model:TitleViewModel) {
-        print("* configure(with) func works!!!")
-//        print("HeroHeaderUIView.configure func called")
-//        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else {return}
-//        print("* URL from heroHeaderView class:", url)
-//        heroImageView.sd_setImage(with: url, completed: nil)
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else {return}
+        heroImageView.sd_setImage(with: url, completed: nil)
     }
-    
-  //where override layoutSubviews() was
-    
-   
-
 }
