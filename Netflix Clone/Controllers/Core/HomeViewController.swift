@@ -48,11 +48,9 @@ class HomeViewController: UIViewController {
     }
     
     private func configureHeroHeaderView() {
-        print("HomeVC.configureHeroHeaderView func called")
         APICaller.shared.getTrendingMovies { [weak self] result in
             switch result {
             case .success(let titles):
-                print("titles was .successful")
                 //shorter to type within closure, otherwise we'd be typing self?.randomTrendingMovie every time in TitleViewModel()
                 let selectedTitle = titles.randomElement()
                 let configureModel = TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? "")
