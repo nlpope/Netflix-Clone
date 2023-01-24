@@ -5,6 +5,7 @@
 //  Created by Noah Pope on 11/29/22.
 //
 
+//STUDYING RELATIONSHIP BTWN SEARCHVC AND SEARCHRESULTSVC
 import UIKit
 
 class SearchViewController: UIViewController {

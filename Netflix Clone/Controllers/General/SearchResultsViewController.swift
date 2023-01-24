@@ -5,6 +5,7 @@
 //  Created by Noah Pope on 1/6/23.
 //
 
+//STUDYING RELATIONSHIP BTWN SEARCHVC AND SEARCHRESULTSVC
 import UIKit
 
 protocol SearchResultsViewControllerDelegate: AnyObject {
