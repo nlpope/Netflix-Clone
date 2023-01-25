@@ -100,15 +100,27 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
             }
         }
     }
-    //play around with this to understand how it works 
+    //play around with this to understand how it works
+//    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+//        let config = UIContextMenuConfiguration(
+//            identifier: nil,
+//            previewProvider: nil) { _ in
+//                let downloadAction = UIAction(title: "Download", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
+//                    print("download tapped")
+//                }
+//                return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [downloadAction])
+//            }
+//        return config
+//    }
+    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
         let config = UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil) { _ in
-                let downloadAction = UIAction(title: "Download", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
+                let downloadAction = UIAction(title: "downloadz", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { _ in
                     print("download tapped")
                 }
-                return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [downloadAction])
+                return UIMenu(title: "", subtitle: nil, image: nil, identifier: nil, options: .destructive, children: [downloadAction])
             }
         return config
     }
