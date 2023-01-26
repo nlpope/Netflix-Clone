@@ -57,7 +57,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         }
     }
     
-    private func downloadTitleAt(indexPath: IndexPath) {
+    private func downloadTitleAt(indexPath: [IndexPath]) {
         print("downloadicus tapped")
     }
 }
@@ -108,9 +108,9 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
 //    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
 //        let config = UIContextMenuConfiguration(
 //            identifier: nil,
-//            previewProvider: nil) { _ in
+//            previewProvider: nil) { [weak self] _ in
 //                let downloadAction = UIAction(title: "Download", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
-//                    print("download tapped")
+//                    self?.downloadTitleAt(indexPath: indexPaths)
 //                }
 //                return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [downloadAction])
 //            }
@@ -118,7 +118,7 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
 //    }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPath: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
-        
+
         let config = UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil) {[weak self] _ in
@@ -127,7 +127,7 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
                 }
                 return UIMenu(title: "", subtitle: "", identifier: nil, options: .displayInline, children: [downloadAction])
             }
-        
+
         return config
     }
         
