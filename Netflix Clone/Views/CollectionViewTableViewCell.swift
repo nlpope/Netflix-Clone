@@ -117,10 +117,10 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         let config = UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil) { _ in
-                let downloadAction = UIAction(title: "downloadz", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { _ in
+                let downloadAction = UIAction(title: "Downloadz", image: nil, identifier: nil, discoverabilityTitle: "download this Title", state: .off) { _ in
                     print("download tapped")
                 }
-                return UIMenu(title: "", subtitle: nil, image: nil, identifier: nil, options: .destructive, children: [downloadAction])
+                return UIMenu(title: "", subtitle: "", identifier: nil, options: .displayInline, children: [downloadAction])
             }
         return config
     }
