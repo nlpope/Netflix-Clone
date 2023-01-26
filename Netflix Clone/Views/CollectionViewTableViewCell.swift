@@ -56,6 +56,10 @@ class CollectionViewTableViewCell: UITableViewCell {
             self?.collectionView.reloadData()
         }
     }
+    
+    private func downloadTitleAt(indexPath: IndexPath) {
+        print("downloadicus tapped")
+    }
 }
 
 // MARK: - DELEGATE AND DATASOURCE METHODS
@@ -113,15 +117,17 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
 //        return config
 //    }
     
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPath: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        
         let config = UIContextMenuConfiguration(
             identifier: nil,
-            previewProvider: nil) { _ in
-                let downloadAction = UIAction(title: "Downloadz", image: nil, identifier: nil, discoverabilityTitle: "download this Title", state: .off) { _ in
-                    print("download tapped")
+            previewProvider: nil) {[weak self] _ in
+                let downloadAction = UIAction(title: "Download", image: nil, identifier: nil, discoverabilityTitle: "download this Title", state: .off) { _ in
+                    self?.downloadTitleAt(indexPath: indexPath)
                 }
                 return UIMenu(title: "", subtitle: "", identifier: nil, options: .displayInline, children: [downloadAction])
             }
+        
         return config
     }
         
