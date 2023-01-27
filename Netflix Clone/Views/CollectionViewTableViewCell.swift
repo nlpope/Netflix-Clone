@@ -57,8 +57,8 @@ class CollectionViewTableViewCell: UITableViewCell {
         }
     }
     
-    private func downloadTitleAt(indexPath: [IndexPath]) {
-        print("downloadicus tapped")
+    private func downloadTitleAt(indexPath: IndexPath) {
+        print("Downloading \(titles[indexPath.row].original_title ?? "")")
     }
 }
 
@@ -117,7 +117,9 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
 //        return config
 //    }
     
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPath: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+    //I was using the plural version of the below (contextMenuConfigurationForItemsAt
+    //... removing the 's's and conseq. the '[]' from around indexPath allowed me to define indexPath as a point instead of array
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
 
         let config = UIContextMenuConfiguration(
             identifier: nil,
