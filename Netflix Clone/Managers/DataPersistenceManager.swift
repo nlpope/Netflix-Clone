@@ -14,6 +14,7 @@ class DataPersistenceManager {
     
     enum DatabaseError: Error {
         case failedToSaveData
+        case failedToFetchData
     }
     
     static let shared = DataPersistenceManager()
@@ -41,6 +42,21 @@ class DataPersistenceManager {
             completion(.success(()))
         } catch {
             completion(.failure(DatabaseError.failedToSaveData))
+        }
+    }
+    
+    func fetchingTitlesFromDataBase(completion: @escaping (Result<[TitleItem], Error>) -> Void) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let context = appDelegate.persistentContainer.viewContext
+        let request: NSFetchRequest<TitleItem> //NSFetchRequest<type of the request we're gonna be using
+        
+        request = TitleItem.fetchRequest()
+        do { //dispatch request for database context manager
+            let titles = try context.fetch(request)
+            completion(.success(titles))
+        } catch {
+            completion(.failure(DatabaseError.failedToFetchData))
         }
     }
 }

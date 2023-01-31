@@ -9,7 +9,7 @@ import UIKit
 
 class DownloadsViewController: UIViewController {
     
-    private let titles: [Title] = [Title]()
+    private var titles: [TitleItem] = [TitleItem]()
     
     //type that retains completion handlers
     private let downloadedTable: UITableView = {
@@ -25,9 +25,30 @@ class DownloadsViewController: UIViewController {
         title = "Downloads"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
+        
+        view.addSubview(downloadedTable)
         downloadedTable.delegate = self
         downloadedTable.dataSource = self
-
+        
+        fetchLocalStorageForDownload()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        downloadedTable.frame = view.bounds
+    }
+    
+    private func fetchLocalStorageForDownload() {
+        DataPersistenceManager.shared.fetchingTitlesFromDataBase { [weak self] result in
+            switch result {
+            case .success(let titles):
+                self?.titles = titles
+                
+                self?.downloadedTable.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
