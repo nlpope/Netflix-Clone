@@ -13,12 +13,12 @@ class DownloadsViewController: UIViewController {
     
     //type that retains completion handlers
     private let downloadedTable: UITableView = {
-       //we're only using the URL here so use closure based initialization
+        //we're only using the URL here so use closure based initialization
         let table = UITableView()
         table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -31,6 +31,9 @@ class DownloadsViewController: UIViewController {
         downloadedTable.dataSource = self
         
         fetchLocalStorageForDownload()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("downloaded"), object: nil, queue: nil) { _ in
+            self.fetchLocalStorageForDownload() //contains logic to reload the data/refresh view w updates
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,16 +86,20 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            DataPersistenceManager.shared.deleteTitlewith(model: titles[indexPath.row]) { result in
+            
+            DataPersistenceManager.shared.deleteTitlewith(model: titles[indexPath.row]) { [weak self] result in
                 switch result {
                 case .success():
                     print("deleted title from database")
-                case .failure(let error): {
-                    print(error.localizedDescription )
-                }
-                }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                } //deleting title from database...
+                self?.titles.remove(at: indexPath.row)//then remove title from array itself...
+                tableView.deleteRows(at: [indexPath], with: .fade)//then remove title from tableView
             }
+        default:
+            break;
         }
     }
 }
+
