@@ -15,6 +15,7 @@ class DataPersistenceManager {
     enum DatabaseError: Error {
         case failedToSaveData
         case failedToFetchData
+        case failedToDeleteData
     }
     
     static let shared = DataPersistenceManager()
@@ -57,6 +58,22 @@ class DataPersistenceManager {
             completion(.success(titles))
         } catch {
             completion(.failure(DatabaseError.failedToFetchData))
+        }
+    }
+    
+    //later, try out @escaping right after the colon to test
+    func deleteTitlewith(model: TitleItem, completion: @escaping (Result<Void, Error>) -> Void ) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let context = appDelegate.persistentContainer.viewContext
+        
+        context.delete(model)
+        
+        do {
+            try context.save()
+            completion(.success(()))
+        } catch {
+            completion(.failure(DatabaseError.failedToDeleteData))
         }
     }
 }

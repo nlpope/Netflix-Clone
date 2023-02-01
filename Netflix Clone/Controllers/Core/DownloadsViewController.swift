@@ -38,13 +38,20 @@ class DownloadsViewController: UIViewController {
         downloadedTable.frame = view.bounds
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.downloadedTable.reloadData()
+    }
+    
     private func fetchLocalStorageForDownload() {
         DataPersistenceManager.shared.fetchingTitlesFromDataBase { [weak self] result in
             switch result {
             case .success(let titles):
                 self?.titles = titles
                 
-                self?.downloadedTable.reloadData()
+                DispatchQueue.main.async {
+                    self?.downloadedTable.reloadData()
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -71,5 +78,21 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            DataPersistenceManager.shared.deleteTitlewith(model: titles[indexPath.row]) { result in
+                switch result {
+                case .success():
+                    print("deleted title from database")
+                case .failure(let error): {
+                    print(error.localizedDescription )
+                }
+                }
+            }
+        }
     }
 }
