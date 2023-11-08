@@ -65,8 +65,10 @@ class HomeViewController: UIViewController {
     }
     
     private func configureNavbar() {
-        var buttonIcon = UIImage(named: "netflixLogo")
-        buttonIcon = buttonIcon?.withRenderingMode(.alwaysOriginal)
+        //set the image & keep the OG color (netflix logo) - i wanna shrink/offset the image's natural width
+        var buttonIcon = UIImage(named: "netflixLogo") //loads the image
+        buttonIcon = buttonIcon?.withRenderingMode(.alwaysOriginal) //turns it red (OG color)
+        //set the button that wraps around the image
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonIcon, style: .done, target: self, action: nil)
         
         navigationItem.rightBarButtonItems = [

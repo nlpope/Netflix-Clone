@@ -33,6 +33,7 @@ class APICaller {
             do {
                 let results = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(results.results))
+                print(results)
             } catch {
                 //instead of printing the err, we're passing in a failure to handle it directly from home viewcontroller
                 completion(.failure(APIError.failedToGetData))

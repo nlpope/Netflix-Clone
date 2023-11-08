@@ -13,7 +13,7 @@ class UpcomingViewController: UIViewController {
     
     //type that retains completion handlers
     private let upcomingTable: UITableView = {
-       //we're only using the URL here so use closure based initialization
+       //we're only using the URL once here so use closure based initialization
         let table = UITableView()
         table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
         return table
@@ -22,7 +22,7 @@ class UpcomingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "Upcoming"
+        title = "Upcomingz"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
