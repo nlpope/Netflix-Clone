@@ -25,8 +25,8 @@ class MainTabBarViewController: UITabBarController {
         
         //these get overwritten by the title set in the VC once clicked, changing its name if not identical
         vc1.title = "Home"
-        vc2.title = "Upcoming"
-        vc3.title = "Top Searches"
+        vc2.title = "Coming Soon"
+        vc3.title = "Search"
         vc4.title = "Downloads"
         
         
