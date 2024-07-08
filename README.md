@@ -39,7 +39,7 @@ NetflixClone - A clone of the popular 'Netflix' app. It is capable of:
 
 ## Authors
 
-Noah Pope (assisted by Beau Carnes)
+* **Noah Pope (assisted by Beau Carnes)**
 
 
 ## License
