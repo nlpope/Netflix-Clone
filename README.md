@@ -1,9 +1,9 @@
 # Project Title
 
 NetflixClone - A clone of the popular 'Netflix' app. It is capable of: 
-  > fetching data from 'themoviedb' API to keep track of what's Trending, Popular, etc. in real time
-  > playing trailers for each title clicked via integrated YouTube player
-  > disclosure: download and search features are still a work in progress
+  * fetching data from 'themoviedb' API to keep track of what's Trending, Popular, etc. in real time,
+  * Playing trailers for each title clicked via integrated YouTube player
+  * Disclosure: download and search features are still a work in progress
 
 ## Getting Started (Requires a Mac & iOS device)
 
