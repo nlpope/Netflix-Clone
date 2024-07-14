@@ -21,15 +21,8 @@ class DownloadsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Downloads"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
-        
-        view.addSubview(downloadedTable)
-        downloadedTable.delegate = self
-        downloadedTable.dataSource = self
-        
+        configureNavigation()
+        configureTableView()
         fetchLocalStorageForDownload()
         NotificationCenter.default.addObserver(forName: NSNotification.Name("downloaded"), object: nil, queue: nil) { _ in
             self.fetchLocalStorageForDownload() //contains logic to reload the data/refresh view w updates
@@ -46,6 +39,22 @@ class DownloadsViewController: UIViewController {
         self.downloadedTable.reloadData()
     }
     
+    
+    func configureNavigation() {
+        view.backgroundColor = .systemBackground
+        title = "Downloads"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+    }
+    
+    
+    func configureTableView() {
+        view.addSubview(downloadedTable)
+        downloadedTable.delegate = self
+        downloadedTable.dataSource = self
+    }
+    
+    
     private func fetchLocalStorageForDownload() {
         DataPersistenceManager.shared.fetchingTitlesFromDataBase { [weak self] result in
             switch result {
@@ -61,6 +70,7 @@ class DownloadsViewController: UIViewController {
         }
     }
 }
+
 
 extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

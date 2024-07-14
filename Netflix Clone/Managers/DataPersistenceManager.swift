@@ -3,10 +3,8 @@
 //  Netflix Clone
 //
 //  Created by Noah Pope on 1/29/23.
-// responsible for downloading data + to work and talk to core data API. We created this file...
-// b/c we don't want to talk to core data API from within class we're using for viewing the collectionViewCell itself (not best practice)
+//
 
-import Foundation
 import UIKit
 import CoreData
 
@@ -19,6 +17,7 @@ class DataPersistenceManager {
     }
     
     static let shared = DataPersistenceManager()
+    
     
     func downloadTitleWith(model: Title, completion: @escaping (Result<Void, Error>) -> Void) {
         
@@ -46,11 +45,12 @@ class DataPersistenceManager {
         }
     }
     
+    
     func fetchingTitlesFromDataBase(completion: @escaping (Result<[TitleItem], Error>) -> Void) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let context = appDelegate.persistentContainer.viewContext
-        let request: NSFetchRequest<TitleItem> //NSFetchRequest<type of the request we're gonna be using
+        let request: NSFetchRequest<TitleItem> 
+        //NSFetchRequest<type of the request we're gonna be using>
         
         request = TitleItem.fetchRequest()
         do { //dispatch request for database context manager
@@ -61,9 +61,8 @@ class DataPersistenceManager {
         }
     }
     
-    //later, try out @escaping right after the colon to test
+    
     func deleteTitlewith(model: TitleItem, completion: @escaping (Result<Void, Error>) -> Void ) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let context = appDelegate.persistentContainer.viewContext
         
