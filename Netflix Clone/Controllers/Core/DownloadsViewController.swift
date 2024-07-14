@@ -12,12 +12,6 @@ class DownloadsViewController: UIViewController {
     let downloadedTable             = UITableView()
     private var titles: [TitleItem] = []
     
-//    private let downloadedTable: UITableView = {
-//        //we're only using the URL here so use closure based initialization
-//        let table = UITableView()
-//        table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
-//        return table
-//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +23,6 @@ class DownloadsViewController: UIViewController {
         }
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        downloadedTable.frame = view.bounds
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -86,7 +76,6 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell  = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {
             return UITableViewCell()
         }
-        
         let title       = titles[indexPath.row]
         cell.configure(with: TitleViewModel(titleName: (title.original_title ?? title.original_name) ?? "Unknown", posterURL: title.poster_path ?? ""))
         

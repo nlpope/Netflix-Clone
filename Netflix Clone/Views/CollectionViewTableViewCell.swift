@@ -99,14 +99,15 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let titleName = title.original_title ?? title.original_name else {return}
         
         APICaller.shared.getMovie(with: titleName + " trailer") { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let videoElement):
                 
-                let title = self?.titles[indexPath.row]
-                guard let titleOverview = title?.overview else {return}
-                guard let strongSelf = self else {return}
+                let title = self.titles[indexPath.row]
+                guard let titleOverview = title.overview else {return}
                 let viewModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: titleOverview)
-                self?.delegate?.CollectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
+                self.delegate?.CollectionViewTableViewCellDidTapCell(self, viewModel: viewModel)
                 
             case .failure(let error):
                 print(error.localizedDescription
