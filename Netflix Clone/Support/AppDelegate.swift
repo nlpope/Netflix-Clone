@@ -188,7 +188,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
  */
 
-#warning("previously on: ")
 
 
 
