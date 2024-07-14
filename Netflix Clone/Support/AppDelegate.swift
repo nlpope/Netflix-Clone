@@ -181,7 +181,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
  --------------------------
  * FileName
- 1.
+ 1. main differences boil down to folder structure and code base formatting
+    > I also accounted for references to strong self within closures differently by using 'guard let self = self else { return }' method
  
  --------------------------
  

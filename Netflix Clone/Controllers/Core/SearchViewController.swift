@@ -130,7 +130,7 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
         guard let query = searchBar.text,
                 !query.trimmingCharacters(in: .whitespaces).isEmpty,
                 query.trimmingCharacters(in: .whitespaces).count >= 3,
-              let resultsConroller = searchController.searchResultsController as? SearchResultsViewController else {return}
+              let resultsConroller = searchController.searchResultsController as? SearchResultsViewController else { return }
         resultsConroller.delegate = self
         
         APICaller.shared.search(with: query) { result in
@@ -145,6 +145,7 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
             }
         }
     }
+    
     
     func SearchResultsViewControllerDidTapItem(_ viewModel: TitlePreviewViewModel) {
         DispatchQueue.main.async {[weak self] in

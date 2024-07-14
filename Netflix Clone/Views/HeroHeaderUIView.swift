@@ -49,15 +49,13 @@ class HeroHeaderUIView: UIView {
         layer.addSublayer(gradientLayer)
     }
     
-    //give it a frame, inside frame assign 3 things:
-    //uiimage view
-    //two buttons - download and play
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(heroImageView)
         addGradient()
-        addSubview(playButton)
-        addSubview(downloadButton)
+//        addSubview(playButton)
+//        addSubview(downloadButton)
         applyConstraints()
     }
     
@@ -74,8 +72,8 @@ class HeroHeaderUIView: UIView {
             downloadButton.widthAnchor.constraint(equalToConstant: 120)
         ]
         
-        NSLayoutConstraint.activate(playButtonConstraints)
-        NSLayoutConstraint.activate(downloadButtonConstraints)
+//        NSLayoutConstraint.activate(playButtonConstraints)
+//        NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
     override func layoutSubviews() {

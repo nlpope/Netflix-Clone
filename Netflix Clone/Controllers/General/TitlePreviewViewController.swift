@@ -53,7 +53,7 @@ class TitlePreviewViewController: UIViewController {
         view.addSubview(webView)
         view.addSubview(titleLabel)
         view.addSubview(overviewLabel)
-        view.addSubview(downloadButton)
+//        view.addSubview(downloadButton)
         
         configureConstraints()
     }
@@ -87,7 +87,7 @@ class TitlePreviewViewController: UIViewController {
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overviewLabelConstraints)
-        NSLayoutConstraint.activate(downloadButtonConstraints)
+//        NSLayoutConstraint.activate(downloadButtonConstraints)
     }
     
     func configure(with model: TitlePreviewViewModel) {
@@ -98,6 +98,4 @@ class TitlePreviewViewController: UIViewController {
         
         webView.load(URLRequest(url: url))
     }
-    
-    
 }
