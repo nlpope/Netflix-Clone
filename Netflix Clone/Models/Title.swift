@@ -7,12 +7,10 @@
 
 import Foundation
 
-//array
 struct TrendingTitleResponse: Codable {
     let results: [Title]
 }
 
-//a single item in that array
 struct Title: Codable {
     let id: Int
     let media_type: String?

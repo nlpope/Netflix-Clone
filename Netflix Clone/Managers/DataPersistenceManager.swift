@@ -10,11 +10,7 @@ import CoreData
 
 class DataPersistenceManager {
     
-    enum DatabaseError: Error {
-        case failedToSaveData
-        case failedToFetchData
-        case failedToDeleteData
-    }
+  
     
     static let shared = DataPersistenceManager()
     
@@ -41,7 +37,7 @@ class DataPersistenceManager {
             try context.save()
             completion(.success(()))
         } catch {
-            completion(.failure(DatabaseError.failedToSaveData))
+            completion(.failure(NCDatabaseError.failedToSaveData))
         }
     }
     
@@ -57,7 +53,7 @@ class DataPersistenceManager {
             let titles = try context.fetch(request)
             completion(.success(titles))
         } catch {
-            completion(.failure(DatabaseError.failedToFetchData))
+            completion(.failure(NCDatabaseError.failedToFetchData))
         }
     }
     
@@ -72,7 +68,7 @@ class DataPersistenceManager {
             try context.save()
             completion(.success(()))
         } catch {
-            completion(.failure(DatabaseError.failedToDeleteData))
+            completion(.failure(NCDatabaseError.failedToDeleteData))
         }
     }
 }

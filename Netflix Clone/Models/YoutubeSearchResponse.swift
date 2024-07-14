@@ -7,18 +7,6 @@
 
 import Foundation
 
-/*
- items =     (
-             {
-         etag = "P2jDTzRinVnvlXgJGuJY617r_7Q";
-         id =             {
-             kind = "youtube#video";
-             videoId = Qd1LOkXBBQs;
-         };
-         kind = "youtube#searchResult";
-     },
- */
-
 struct YoutubeSearchResponse: Codable {
     let items: [VideoElement]
 }

@@ -9,15 +9,15 @@ import UIKit
 
 class DownloadsViewController: UIViewController {
     
-    private var titles: [TitleItem] = [TitleItem]()
+    let downloadedTable             = UITableView()
+    private var titles: [TitleItem] = []
     
-    //type that retains completion handlers
-    private let downloadedTable: UITableView = {
-        //we're only using the URL here so use closure based initialization
-        let table = UITableView()
-        table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
-        return table
-    }()
+//    private let downloadedTable: UITableView = {
+//        //we're only using the URL here so use closure based initialization
+//        let table = UITableView()
+//        table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
+//        return table
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +29,10 @@ class DownloadsViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        downloadedTable.frame = view.bounds
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        downloadedTable.frame = view.bounds
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -50,8 +50,12 @@ class DownloadsViewController: UIViewController {
     
     func configureTableView() {
         view.addSubview(downloadedTable)
+        downloadedTable.frame = view.bounds
         downloadedTable.delegate = self
         downloadedTable.dataSource = self
+        downloadedTable.removeExcessCells()
+        
+        downloadedTable.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
     }
     
     
@@ -77,48 +81,55 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
         return titles.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {
+        guard let cell  = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {
             return UITableViewCell()
         }
         
-        let title = titles[indexPath.row]
+        let title       = titles[indexPath.row]
         cell.configure(with: TitleViewModel(titleName: (title.original_title ?? title.original_name) ?? "Unknown", posterURL: title.poster_path ?? ""))
         
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
             
             DataPersistenceManager.shared.deleteTitlewith(model: titles[indexPath.row]) { [weak self] result in
+                guard let self = self else { return }
+                
                 switch result {
                 case .success():
                     print("deleted title from database")
                 case .failure(let error):
                     print(error.localizedDescription)
-                } //deleting title from database...
-                self?.titles.remove(at: indexPath.row)//then remove title from array itself...
-                tableView.deleteRows(at: [indexPath], with: .fade)//then remove title from tableView
+                }
+                self.titles.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
         default:
             break;
         }
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let title = titles[indexPath.row]
-        guard let titleName = title.original_title ?? title.original_title else {return}
+        guard let titleName = title.original_title ?? title.original_title else { return }
         
         APICaller.shared.getMovie(with: titleName) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let videoElement):
                 DispatchQueue.main.async {
@@ -126,7 +137,7 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
                     let configureModel = TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: title.overview ?? "")
                     
                     vc.configure(with: configureModel)
-                    self?.navigationController?.pushViewController(vc, animated: true)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
                 
             case .failure(let error):
